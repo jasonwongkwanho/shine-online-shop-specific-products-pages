@@ -1,0 +1,188 @@
+/* 1. Design Tokens */
+:root {
+  --ink: #1f2933;
+  --muted: #65758b;
+  --line: #dde5ee;
+  --panel: #ffffff;
+  --soft: #f6f8fb;
+  --accent: #0f766e;
+  --accent-2: #b45309;
+  --accent-3: #be185d;
+  --shadow: 0 10px 28px rgba(31, 41, 51, 0.08);
+  --radius: 8px;
+  --content: 1180px;
+  font-family: "Noto Sans HK", "Microsoft JhengHei", "PingFang HK", Arial, sans-serif;
+}
+
+/* 2. Base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.08), transparent 34%),
+    linear-gradient(225deg, rgba(190, 24, 93, 0.07), transparent 30%),
+    var(--soft);
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* 3. Layout */
+.page-shell {
+  width: min(var(--content), calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.product-header {
+  display: grid;
+  gap: 14px;
+  padding: 24px 0 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand-line {
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.series-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.series-meta li {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 650;
+  padding: 6px 12px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+  padding: 26px 0 10px;
+}
+
+/* 4. Components */
+.product-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.image-frame {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  background:
+    linear-gradient(180deg, rgba(246, 248, 251, 0.96), rgba(255, 255, 255, 0.96));
+  border-bottom: 1px solid var(--line);
+}
+
+.image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 14px;
+}
+
+.product-info {
+  display: grid;
+  gap: 9px;
+  padding: 14px;
+}
+
+.code-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.product-code {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: "Cascadia Mono", "Consolas", monospace;
+  font-size: 1.02rem;
+  font-weight: 750;
+  letter-spacing: 0;
+}
+
+.original-link {
+  width: fit-content;
+  border-bottom: 2px solid rgba(15, 118, 110, 0.28);
+  color: var(--accent);
+  font-size: 0.92rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.original-link:focus,
+.original-link:hover {
+  border-bottom-color: var(--accent);
+}
+
+.page-footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* 5. Responsive */
+@media (max-width: 768px) {
+  .page-shell {
+    width: min(100% - 22px, var(--content));
+    padding-top: 18px;
+  }
+
+  .product-header {
+    padding-top: 18px;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
