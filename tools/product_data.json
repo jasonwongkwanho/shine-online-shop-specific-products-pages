@@ -1,0 +1,59 @@
+{
+  "order_note": "請先記下心儀款式的編號，再到「訂購表格」相應欄位填寫「編號」及「購買數量」",
+  "pages": [
+    {
+      "file": "masterpiece-cat-cloth.html",
+      "title": "眼鏡布_名畫喵系列",
+      "meta": ["共 12 款", "眼鏡布", "名畫喵系列"],
+      "items": [
+        { "code": "A01_CP", "drive_id": "1Ec_1FQVQiZTE1N3FfUVthatOAXK7ZI-_" },
+        { "code": "A01_MC", "drive_id": "1c7aLFLTw3E1UbZakghMGusFYdztb8S_x" },
+        { "code": "A02_CP", "drive_id": "14hUxKvIvRciNcDE2Dm3_yVui-zXQv9MQ" },
+        { "code": "A03_CP", "drive_id": "1ZkE-tQA1iZuOBUZEl48dhN7LgQwx-DVy" },
+        { "code": "A04_CP", "drive_id": "1lLvFOf8McjlNsKKqSW1h2L6rWwcSK9wr" },
+        { "code": "A05_CP", "drive_id": "1etdkgKwcrpHS6j0nSUbxdXcWHSfvuK9O" },
+        { "code": "A06_CP", "drive_id": "1otch2H260TkLZggE_H0xuKC4t5CvN6VT" },
+        { "code": "A07_CP", "drive_id": "1VA90CT3GZtNn_7s6mcH24YlUigbv0Bl-" },
+        { "code": "A08_CP", "drive_id": "16_9TsVO23XpgemMd1vTvxdO6LkKXpsga" },
+        { "code": "A09_CP", "drive_id": "1r57hXBGmUHCgr7MlgWogM2oz8vvIW2I1" },
+        { "code": "A10_CP", "drive_id": "1WRAaD8cUTOsExMiZR5Y52GM8DFcFHZNn" },
+        { "code": "A11_CP", "drive_id": "11Pr3ZVOiiAs5LNxp8wSEK1r2pe5rFV9x" }
+      ]
+    },
+    {
+      "file": "dog-statue-cloth.html",
+      "title": "眼鏡布_犬雕像系列",
+      "meta": ["共 2 款", "眼鏡布", "犬雕像系列"],
+      "items": [
+        { "code": "C01_SE", "drive_id": "1ZKdz4xi5iuil9GW5DLQTcfWreH4Chaj1" },
+        { "code": "C01_VE", "drive_id": "1BVn_qpqqgfuqxQIBD3KEjVcK8wQBQ85X" }
+      ]
+    },
+    {
+      "file": "pop-up-world.html",
+      "title": "立體咭_環球系列",
+      "meta": ["共 1 款", "立體咭", "環球系列"],
+      "items": [
+        { "code": "JP001", "drive_id": "15fBKXhg9xjUx8T9e4Iz_Sk_leyg25D7w" }
+      ]
+    },
+    {
+      "file": "pop-up-festival.html",
+      "title": "立體咭_節慶系列",
+      "meta": ["共 1 款", "立體咭", "節慶系列"],
+      "items": [
+        { "code": "C001", "drive_id": "1KcQx_wLYAO2mSXdhOvxDr4KD0D8RMkBy" }
+      ]
+    },
+    {
+      "file": "pop-up-hong-kong.html",
+      "title": "立體咭_港式情懷",
+      "meta": ["共 3 款", "立體咭", "港式情懷"],
+      "items": [
+        { "code": "001", "drive_id": "14ZuzdbA-08R_EZmy2l-pyna-ySZTKgMh" },
+        { "code": "002", "drive_id": "13vHGFDJuGKwp1izShN8tj4bB4dXyU_HI" },
+        { "code": "003", "drive_id": "1Q7eT2L-KydY_8w2eKAGe0IjszjD2waBQ" }
+      ]
+    }
+  ]
+}

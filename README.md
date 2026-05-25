@@ -22,4 +22,14 @@ https://jasonwongkwanho.github.io/shine-online-shop-specific-products-pages/
 
 ## Image Access
 
-The pages display Google Drive images through Drive thumbnail links. The source Drive files or parent folder must be shared as "Anyone with the link can view" for public visitors.
+The pages display local optimized WebP images generated from the Google Drive source files. The "open original image" links still point to Google Drive.
+
+## Updating The Site
+
+Update `tools/product_data.json`, then run:
+
+```powershell
+& 'C:\Users\Jason\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' 'tools\refresh_site.py'
+```
+
+See `docs/update-workflow.md` for the full future update workflow.

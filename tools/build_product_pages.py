@@ -1,77 +1,30 @@
+import json
 from html import escape
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 PRODUCT_DIR = ROOT / "products"
+DATA_PATH = ROOT / "tools" / "product_data.json"
 
-ORDER_NOTE = "請先記下心儀款式的編號，再到「訂購表格」相應欄位填寫「編號」及「購買數量」"
 
-PAGES = [
-    {
-        "file": "masterpiece-cat-cloth.html",
-        "title": "眼鏡布_名畫喵系列",
-        "meta": ["共 12 款", "眼鏡布", "名畫喵系列"],
-        "items": [
-            ("A01_CP", "1Ec_1FQVQiZTE1N3FfUVthatOAXK7ZI-_"),
-            ("A01_MC", "1c7aLFLTw3E1UbZakghMGusFYdztb8S_x"),
-            ("A02_CP", "14hUxKvIvRciNcDE2Dm3_yVui-zXQv9MQ"),
-            ("A03_CP", "1ZkE-tQA1iZuOBUZEl48dhN7LgQwx-DVy"),
-            ("A04_CP", "1lLvFOf8McjlNsKKqSW1h2L6rWwcSK9wr"),
-            ("A05_CP", "1etdkgKwcrpHS6j0nSUbxdXcWHSfvuK9O"),
-            ("A06_CP", "1otch2H260TkLZggE_H0xuKC4t5CvN6VT"),
-            ("A07_CP", "1VA90CT3GZtNn_7s6mcH24YlUigbv0Bl-"),
-            ("A08_CP", "16_9TsVO23XpgemMd1vTvxdO6LkKXpsga"),
-            ("A09_CP", "1r57hXBGmUHCgr7MlgWogM2oz8vvIW2I1"),
-            ("A10_CP", "1WRAaD8cUTOsExMiZR5Y52GM8DFcFHZNn"),
-            ("A11_CP", "11Pr3ZVOiiAs5LNxp8wSEK1r2pe5rFV9x"),
-        ],
-    },
-    {
-        "file": "dog-statue-cloth.html",
-        "title": "眼鏡布_犬雕像系列",
-        "meta": ["共 2 款", "眼鏡布", "犬雕像系列"],
-        "items": [
-            ("C01_SE", "1ZKdz4xi5iuil9GW5DLQTcfWreH4Chaj1"),
-            ("C01_VE", "1BVn_qpqqgfuqxQIBD3KEjVcK8wQBQ85X"),
-        ],
-    },
-    {
-        "file": "pop-up-world.html",
-        "title": "立體咭_環球系列",
-        "meta": ["共 1 款", "立體咭", "環球系列"],
-        "items": [
-            ("JP001", "15fBKXhg9xjUx8T9e4Iz_Sk_leyg25D7w"),
-        ],
-    },
-    {
-        "file": "pop-up-festival.html",
-        "title": "立體咭_節慶系列",
-        "meta": ["共 1 款", "立體咭", "節慶系列"],
-        "items": [
-            ("C001", "1KcQx_wLYAO2mSXdhOvxDr4KD0D8RMkBy"),
-        ],
-    },
-    {
-        "file": "pop-up-hong-kong.html",
-        "title": "立體咭_港式情懷",
-        "meta": ["共 3 款", "立體咭", "港式情懷"],
-        "items": [
-            ("001", "14ZuzdbA-08R_EZmy2l-pyna-ySZTKgMh"),
-            ("002", "13vHGFDJuGKwp1izShN8tj4bB4dXyU_HI"),
-            ("003", "1Q7eT2L-KydY_8w2eKAGe0IjszjD2waBQ"),
-        ],
-    },
-]
+def load_data():
+    return json.loads(DATA_PATH.read_text(encoding="utf-8"))
 
 
 def image_url(file_id, width=720):
     return f"https://drive.google.com/thumbnail?id={file_id}&sz=w{width}"
 
 
-def image_srcset(file_id):
+def local_image_url(page_file, code, width=720):
+    page_slug = page_file.removesuffix(".html")
+    return f"../assets/images/{page_slug}/{code}-{width}.webp"
+
+
+def local_image_srcset(page_file, code):
+    page_slug = page_file.removesuffix(".html")
     return ", ".join(
-        f"{image_url(file_id, width)} {width}w"
+        f"../assets/images/{page_slug}/{code}-{width}.webp {width}w"
         for width in (480, 720, 960)
     )
 
@@ -80,16 +33,18 @@ def original_url(file_id):
     return f"https://drive.google.com/file/d/{file_id}/view?usp=drivesdk"
 
 
-def render_page(page):
+def render_page(page, order_note):
     meta = "\n".join(f"        <li>{escape(value)}</li>" for value in page["meta"])
     cards = []
-    for index, (code, file_id) in enumerate(page["items"]):
+    for index, item in enumerate(page["items"]):
+        code = item["code"]
+        file_id = item["drive_id"]
         loading = "eager" if index == 0 else "lazy"
         fetchpriority = "high" if index == 0 else "auto"
         cards.append(
             f"""      <article class="product-card">
         <div class="image-frame">
-          <img src="{image_url(file_id)}" srcset="{image_srcset(file_id)}" sizes="(max-width: 768px) calc(100vw - 50px), (min-width: 1024px) 360px, 50vw" alt="{escape(code)}" width="720" height="720" loading="{loading}" decoding="async" fetchpriority="{fetchpriority}">
+          <img src="{local_image_url(page['file'], code)}" srcset="{local_image_srcset(page['file'], code)}" sizes="(max-width: 768px) calc(100vw - 50px), (min-width: 1024px) 360px, 50vw" alt="{escape(code)}" width="720" height="720" loading="{loading}" decoding="async" fetchpriority="{fetchpriority}">
         </div>
         <div class="product-info">
           <p class="code-label">編號</p>
@@ -100,15 +55,13 @@ def render_page(page):
         )
     gallery = "\n".join(cards)
     title = escape(page["title"])
-    note = escape(ORDER_NOTE)
+    note = escape(order_note)
     return f"""<!doctype html>
 <html lang="zh-Hant-HK">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
-  <link rel="preconnect" href="https://drive.google.com">
-  <link rel="dns-prefetch" href="https://drive.google.com">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -135,9 +88,10 @@ def render_page(page):
 
 
 def main():
+    data = load_data()
     PRODUCT_DIR.mkdir(exist_ok=True)
-    for page in PAGES:
-        (PRODUCT_DIR / page["file"]).write_text(render_page(page), encoding="utf-8", newline="\n")
+    for page in data["pages"]:
+        (PRODUCT_DIR / page["file"]).write_text(render_page(page, data["order_note"]), encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":
