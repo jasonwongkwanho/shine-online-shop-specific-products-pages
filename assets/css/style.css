@@ -118,6 +118,8 @@ h1 {
   border-radius: var(--radius);
   background: var(--panel);
   box-shadow: var(--shadow);
+  content-visibility: auto;
+  contain-intrinsic-size: 430px;
   overflow: hidden;
 }
 

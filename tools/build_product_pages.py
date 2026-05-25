@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PRODUCT_DIR = ROOT / "products"
 
-ORDER_NOTE = "請先在對話紀錄中記下心儀款式的編號，再到訂購表格相應欄位填寫「編號」及「購買數量」。"
+ORDER_NOTE = "請先記下心儀款式的編號，再到「訂購表格」相應欄位填寫「編號」及「購買數量」"
 
 PAGES = [
     {
@@ -65,8 +65,15 @@ PAGES = [
 ]
 
 
-def image_url(file_id):
-    return f"https://drive.google.com/thumbnail?id={file_id}&sz=w1600"
+def image_url(file_id, width=720):
+    return f"https://drive.google.com/thumbnail?id={file_id}&sz=w{width}"
+
+
+def image_srcset(file_id):
+    return ", ".join(
+        f"{image_url(file_id, width)} {width}w"
+        for width in (480, 720, 960)
+    )
 
 
 def original_url(file_id):
@@ -76,11 +83,13 @@ def original_url(file_id):
 def render_page(page):
     meta = "\n".join(f"        <li>{escape(value)}</li>" for value in page["meta"])
     cards = []
-    for code, file_id in page["items"]:
+    for index, (code, file_id) in enumerate(page["items"]):
+        loading = "eager" if index == 0 else "lazy"
+        fetchpriority = "high" if index == 0 else "auto"
         cards.append(
             f"""      <article class="product-card">
         <div class="image-frame">
-          <img src="{image_url(file_id)}" alt="{escape(code)}" loading="lazy">
+          <img src="{image_url(file_id)}" srcset="{image_srcset(file_id)}" sizes="(max-width: 768px) calc(100vw - 50px), (min-width: 1024px) 360px, 50vw" alt="{escape(code)}" width="720" height="720" loading="{loading}" decoding="async" fetchpriority="{fetchpriority}">
         </div>
         <div class="product-info">
           <p class="code-label">編號</p>
@@ -98,6 +107,8 @@ def render_page(page):
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
+  <link rel="preconnect" href="https://drive.google.com">
+  <link rel="dns-prefetch" href="https://drive.google.com">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
