@@ -34,21 +34,6 @@ Manual Codex refresh flow:
 
 Do not hand-edit the generated `products/*.html` unless the generator cannot express the requested change. Prefer editing `tools/product_data.json`, `tools/build_product_pages.py`, or CSS, then regenerate.
 
-## Scheduled Automation
+## Automation Choice
 
-GitHub Actions is the cloud automation path because it can run even when Jason's computer is shut down.
-
-The workflow is:
-
-```text
-.github/workflows/refresh-products.yml
-```
-
-It runs every night at 00:00 Hong Kong time and can also be run manually from GitHub Actions. It requires one of these repository secrets:
-
-```text
-GOOGLE_DRIVE_API_KEY
-GOOGLE_SERVICE_ACCOUNT_JSON
-```
-
-Use `GOOGLE_DRIVE_API_KEY` for public/shared source folders. Use `GOOGLE_SERVICE_ACCOUNT_JSON` for private folders shared with a service account. Use `GOOGLE_DRIVE_ACCESS_TOKEN` only as a temporary fallback. Do not commit credentials into this repo.
+This project intentionally uses manual Codex refresh only. There is no GitHub Actions scheduled Drive sync, so no Google Drive API secret is required.

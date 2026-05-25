@@ -1,9 +1,8 @@
 # 更新產品展示頁流程
 
-本專案支援兩種更新方式：
+本專案支援一種更新方式：
 
 - 手動指令：Jason 在此專案說「refresh」或「更新」時，Codex 應按本文件刷新網站。
-- 定時自動：GitHub Actions 每晚 12:00（香港時間）檢查 Google Drive 並刷新網站。
 
 ## 資料來源
 
@@ -68,52 +67,11 @@ git push
 
 9. 等 GitHub Pages build 完成後，檢查 live pages 回 `200`。
 
-## GitHub Actions 定時自動更新
+## 不使用定時自動更新
 
-雲端定時更新 workflow：
+本專案現時不使用 GitHub Actions 定時讀取 Google Drive，因此不需要設定 `GOOGLE_DRIVE_API_KEY`、`GOOGLE_SERVICE_ACCOUNT_JSON` 或其他 Drive secret。
 
-```text
-.github/workflows/refresh-products.yml
-```
-
-排程：
-
-```text
-每天 00:00 香港時間
-```
-
-GitHub Actions 使用 UTC，所以 workflow 內的 cron 是：
-
-```text
-0 16 * * *
-```
-
-流程：
-
-1. Checkout repo。
-2. 安裝 Python dependencies。
-3. 用 Google Drive API 讀取 Drive 主 folder 及所有子 folder。
-4. 執行 `tools/sync_drive_manifest.py` 更新 `tools/product_data.json`。
-5. 執行 `tools/refresh_site.py` 重新產生 WebP、HTML、DOCX link 文件。
-6. 執行 `tools/verify_site.py` 驗證輸出。
-7. 如有改動，自動 commit 並 push 回 `main`。
-
-### 必須設定的 GitHub Secret
-
-到 GitHub repo：
-
-```text
-Settings -> Secrets and variables -> Actions -> New repository secret
-```
-
-新增其中一個：
-
-```text
-GOOGLE_DRIVE_API_KEY
-GOOGLE_SERVICE_ACCOUNT_JSON
-```
-
-如 Drive folder 是公開或可由 API key 讀取，用 `GOOGLE_DRIVE_API_KEY`。如 Drive folder 是私人資料夾，用 `GOOGLE_SERVICE_ACCOUNT_JSON`，並把 Google Drive source folder 分享給該 service account email。`GOOGLE_DRIVE_ACCESS_TOKEN` 只適合臨時測試，不適合長期排程。
+更新節奏改為：Jason 將新相片或新系列 folder 放入 Google Drive 後，在此專案對 Codex 說 `refresh` 或 `更新`，Codex 便按上方流程更新網站、文件、commit 及 push。
 
 ## 新系列 folder 規則
 
