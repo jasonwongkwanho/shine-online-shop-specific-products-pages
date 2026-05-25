@@ -1,0 +1,2 @@
+Pillow>=10,<12
+google-auth[requests]>=2,<3
