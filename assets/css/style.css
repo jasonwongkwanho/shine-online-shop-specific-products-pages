@@ -88,6 +88,23 @@ h1 {
   padding: 6px 12px;
 }
 
+.order-note {
+  margin: 22px 0 0;
+  border: 1px solid rgba(15, 118, 110, 0.2);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
+  padding: 14px 16px;
+}
+
+.order-note p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 650;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
